@@ -16,6 +16,7 @@ namespace GameShopSOLID
         public string ParseName()
         {
             string name = userInput.name;
+            //string name = userInput.NameInput(s);     trazi parametar
             return name.Trim();
         }
 
@@ -61,22 +62,15 @@ namespace GameShopSOLID
             return Double.Parse(sRsd);
         }
 
-        public bool ParseSelectiveDiscount()
+        public bool ParseDiscountBefore()
         {
-            string sSelectiveDiscount = userInput.selectiveDiscount;
-            if(sSelectiveDiscount.ToLower() == "da")
+            string sDiscountBefore = userInput.discountBefore;
+            if(sDiscountBefore.ToLower() == "da")
             {
                 return true;
             }
-            //else if(sSelectiveDiscount.ToLower() == "ne")
-            //{
             else
                 return false;
-            //}
-            //else
-            //{
-            //    return null;
-            //}
         }
 
 

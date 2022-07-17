@@ -10,7 +10,7 @@ namespace GameShopSOLID
         private double tax;
         private double discount;
         private int upc;
-        private bool selectiveDiscount;
+        private bool discountBefore;
         private double price;
         private UserInput ui;
         private ParseInput parseInput;
@@ -27,14 +27,41 @@ namespace GameShopSOLID
             tax = parseInput.ParseTax();
             discount = parseInput.ParseDiscount();
             upc = parseInput.ParseUPC();
-            selectiveDiscount = parseInput.ParseSelectiveDiscount();
+            discountBefore = parseInput.ParseDiscountBefore();
             price = parseInput.ParsePrice();
         }
 
         public override string ToString()
         {
-            return $"Ime: {this.name}, Porez: {this.tax}, Popust: {this.discount}, UPC: {this.upc},  Selektivni popust: {this.selectiveDiscount}, Cena: {this.price}\n";
+            return $"Ime: {this.name}, Porez: {this.tax}, Popust: {this.discount}, UPC: {this.upc},  Selektivni popust: {this.discountBefore}, Cena: {this.price}\n";
         }
+
+        public double Discount()
+        {
+            return Math.Round((discount / 100) * price, 2);
+        }
+
+        public double Tax()
+        {
+           // if (discountBefore)
+           // {
+           //     return Math.Round((tax / 100) * (price - selectiveDiscount()), 2);
+
+           // }
+          //  else
+          //  {
+                return Math.Round((tax / 100) * price, 2);
+          //  }
+        }
+
+        public double FinalPrice()
+        {
+            return Math.Round(price - Discount() + Tax(), 2);
+        }
+
+
+
+
 
 
 

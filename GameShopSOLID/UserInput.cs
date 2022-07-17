@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameShopSOLID
 {
-    public class UserInput
+    public class UserInput : ValidateInput
     {
         //private string name;
         //private string tax;
@@ -17,8 +17,9 @@ namespace GameShopSOLID
         public string tax;
         public string discount;
         public string upc;
-        public string selectiveDiscount;
+        public string discountBefore;
         public string price;
+        public Dictionary<string, string> selectiveDicountBase = new Dictionary<string, string>();
 
         public string GetName()
         {
@@ -85,7 +86,7 @@ namespace GameShopSOLID
             }
         }
 
-        public string SelectiveDiscountInput(string s)
+        public string DiscountBeforeInput(string s)
         {
             //Console.WriteLine("Da li zelite obracun selektivnog popusta pre poreza? da/ne");
             //selectiveDiscount = Console.ReadLine();
@@ -95,8 +96,8 @@ namespace GameShopSOLID
             }
             else
             {
-                selectiveDiscount = s;
-                return selectiveDiscount;
+                discountBefore = s;
+                return discountBefore;
             }
         }
 
@@ -114,6 +115,31 @@ namespace GameShopSOLID
                 return price;
             }
         }
+
+        public Dictionary<string, string> SelectiveDiscountBaseInput(ValidateInput vi)      //prva verzija je bila bez parametara, na to se odnosi pitanje
+        {
+            while (true)
+            {
+                Console.WriteLine("Unesite UPC");
+                upc = Console.ReadLine();
+                if (upc.ToLower() == "stop") break;
+                Console.WriteLine("Unesite popust");
+                discount = Console.ReadLine();
+                if (discount.ToLower() == "stop") break;
+
+                if (vi.ValidUPC() && vi.ValidTaxOrDiscount())           //zasto ovo radi i kad nije data instanca objekta ValidateInput
+                {
+                    selectiveDicountBase.Add(upc, discount);
+                }
+                else
+                {
+                    Console.WriteLine("Greska u unosu!");
+                }
+            }
+            return selectiveDicountBase;
+        }
+
+
 
     
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameShopSOLID
 {
-    public class ValidateInput : UserInput
+    public class ValidateInput 
     {
         private UserInput userInput;
         
@@ -48,7 +48,7 @@ namespace GameShopSOLID
 
         public bool ValidUPC()
         {
-            string sUpc = userInput.name;
+            string sUpc = userInput.upc;                //ovde se javlja exception 
             if (Int32.TryParse(sUpc, out int upc) && sUpc.Length <= 64 && upc > 0 && sUpc!=null)
             {
                 return true;
@@ -59,10 +59,10 @@ namespace GameShopSOLID
             }
         }
 
-        public bool ValidSelectiveDiscount()
+        public bool ValidDiscountBefore()
         {
-            string selectiveDiscount = userInput.selectiveDiscount;
-            if (selectiveDiscount.ToLower() == "da" || selectiveDiscount.ToLower() == "ne")
+            string discountBefore = userInput.discountBefore;
+            if (discountBefore.ToLower() == "da" || discountBefore.ToLower() == "ne")
             {
                 return true;
             }

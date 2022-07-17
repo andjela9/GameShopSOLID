@@ -27,8 +27,15 @@ namespace GameShopSOLID
                 //validateInput.ValidName(userInput.NameInput());
                 //Console.WriteLine($"Valid Name {validateInput.ValidName(userInput.NameInput())}");
 
-                UserInput userInput = new UserInput();
+
+                UserInput userInput = new UserInput();                                      
                 ValidateInput validateInput = new ValidateInput(userInput);
+                Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
+                Console.WriteLine("***Za zavrsetak unesite STOP");
+                userInput.SelectiveDiscountBaseInput(validateInput);
+
+
+
                 Console.WriteLine("-----------------------------UNOS PARAMETARA-----------------------------");
                 Console.WriteLine("Unesite naziv proizvoda. Za izlazak unesite exit");
                 string name = Console.ReadLine();
@@ -87,13 +94,13 @@ namespace GameShopSOLID
                 
 
                 Console.WriteLine("Da li zelite obracun selektivnog popusta pre poreza? da/ne");
-                string selectiveDiscount = Console.ReadLine();
-                if (userInput.SelectiveDiscountInput(selectiveDiscount) == null)
+                string discountBefore = Console.ReadLine();
+                if (userInput.DiscountBeforeInput(discountBefore) == null)
                 {
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidSelectiveDiscount())
+                if (!validateInput.ValidDiscountBefore())
                 {
                     Console.WriteLine("~Pogresan unos! Unesite da ili ne");
                     continue;
@@ -112,10 +119,19 @@ namespace GameShopSOLID
                     continue;
                 }
 
+                //Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
+                //Console.WriteLine("***Za zavrsetak unesite STOP");
+                //userInput.SelectiveDiscountBaseInput();
+
+
                 ParseInput parseInput = new ParseInput(userInput);
                 Product product = new Product(userInput);
                 Console.WriteLine(product);
 
+                Output output = new Output(product);
+                output.DiscountOutput();
+                output.TaxOutput();
+                output.FinalPriceOutput();
 
             }
         }
