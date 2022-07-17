@@ -30,9 +30,9 @@ namespace GameShopSOLID
 
                 UserInput userInput = new UserInput();                                      
                 ValidateInput validateInput = new ValidateInput(userInput);
-                Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
-                Console.WriteLine("***Za zavrsetak unesite STOP");
-                userInput.SelectiveDiscountBaseInput(validateInput);
+                //Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
+                //Console.WriteLine("***Za zavrsetak unesite STOP");
+                //userInput.SelectiveDiscountBaseInput(validateInput);
 
 
 
