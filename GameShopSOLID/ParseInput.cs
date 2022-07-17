@@ -4,33 +4,30 @@ using System.Text;
 
 namespace GameShopSOLID
 {
-    public class ParseInput
+    public class ParseInput 
     {
         private UserInput userInput = new UserInput();
-        private ValidateInput validateInput = new ValidateInput();
 
-        public ParseInput(UserInput ui, ValidateInput vi)
+        public ParseInput(UserInput ui)
         {
             userInput = ui;
-            validateInput = vi;
         }
 
-        public string ParseName(string name)
+        public string ParseName()
         {
-            if (validateInput.ValidName())
-            {
-
-            }
-            //return name.Trim();
+            string name = userInput.name;
+            return name.Trim();
         }
 
-        public int ParseUPC(string sUpc)
+        public int ParseUPC()
         {
+            string sUpc = userInput.upc;
             return Int32.Parse(sUpc);
         }
 
-        public double ParseTaxOrDiscount(string sTax)
+        public double ParseTax()
         {
+            string sTax = userInput.tax;
             if (sTax.EndsWith("%"))
             {
                 sTax = sTax.Trim('%');
@@ -40,8 +37,21 @@ namespace GameShopSOLID
             return Double.Parse(sTax);
         }
 
-        public double ParsePrice(string sRsd)
+        public double ParseDiscount()
         {
+            string sDiscount = userInput.discount;
+            if (sDiscount.EndsWith("%"))
+            {
+                sDiscount = sDiscount.Trim('%');
+            }
+            sDiscount.Trim();
+            sDiscount = sDiscount.Replace('.', ',');
+            return Double.Parse(sDiscount);
+        }
+
+        public double ParsePrice()
+        {
+            string sRsd = userInput.price;
             if (sRsd.EndsWith("RSD"))
             {
                 sRsd = sRsd.Replace("RSD", "");
@@ -49,6 +59,24 @@ namespace GameShopSOLID
             sRsd.Trim();
             sRsd = sRsd.Replace('.', ',');
             return Double.Parse(sRsd);
+        }
+
+        public bool ParseSelectiveDiscount()
+        {
+            string sSelectiveDiscount = userInput.selectiveDiscount;
+            if(sSelectiveDiscount.ToLower() == "da")
+            {
+                return true;
+            }
+            //else if(sSelectiveDiscount.ToLower() == "ne")
+            //{
+            else
+                return false;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
         }
 
 

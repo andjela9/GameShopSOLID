@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameShopSOLID
 {
-    public class ValidateInput
+    public class ValidateInput : UserInput
     {
         private UserInput userInput;
         
@@ -14,9 +14,9 @@ namespace GameShopSOLID
         }
         public ValidateInput() { }
 
-        public bool ValidName(string name)
+        public bool ValidName()
         {
-            string name = userInput.NameInput();
+            string name = userInput.name;
             if (name.Length > 0 && name.Length <= 64 && name != " " && name!=null)
             {
                 return true;
@@ -27,8 +27,9 @@ namespace GameShopSOLID
             }
         }
 
-        public bool ValidTaxOrDiscount(string sTax)
+        public bool ValidTaxOrDiscount()
         {
+            string sTax = userInput.tax;
             if (sTax.EndsWith("%"))
             {
                 sTax = sTax.Trim('%');
@@ -45,8 +46,9 @@ namespace GameShopSOLID
             }
         }
 
-        public bool ValidUPC(string sUpc)
+        public bool ValidUPC()
         {
+            string sUpc = userInput.name;
             if (Int32.TryParse(sUpc, out int upc) && sUpc.Length <= 64 && upc > 0 && sUpc!=null)
             {
                 return true;
@@ -57,9 +59,10 @@ namespace GameShopSOLID
             }
         }
 
-        public bool ValidSelectiveDiscount(string discount)
+        public bool ValidSelectiveDiscount()
         {
-            if(discount.ToLower() == "da" || discount.ToLower() == "ne")
+            string selectiveDiscount = userInput.selectiveDiscount;
+            if (selectiveDiscount.ToLower() == "da" || selectiveDiscount.ToLower() == "ne")
             {
                 return true;
             }
@@ -69,8 +72,9 @@ namespace GameShopSOLID
             }
         }
 
-        public bool ValidPrice(string sRsd)
+        public bool ValidPrice()
         {
+            string sRsd = userInput.price;
             if (sRsd.EndsWith("RSD"))
             {
                 sRsd = sRsd.Replace("RSD", "");

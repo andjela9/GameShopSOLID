@@ -9,8 +9,7 @@ namespace GameShopSOLID
             while (true)
             {
 
-                UserInput userInput = new UserInput();
-                ValidateInput validateInput = new ValidateInput();
+
                 ////userInput.NameInput();
                 //if (userInput.NameInput() == null || userInput.TaxInput() == null || userInput.DiscountInput() == null || userInput.UpcInput() == null || 
                 //    userInput.PriceInput() == null || userInput.SelectiveDiscountInput() == null)
@@ -28,7 +27,9 @@ namespace GameShopSOLID
                 //validateInput.ValidName(userInput.NameInput());
                 //Console.WriteLine($"Valid Name {validateInput.ValidName(userInput.NameInput())}");
 
-
+                UserInput userInput = new UserInput();
+                ValidateInput validateInput = new ValidateInput(userInput);
+                Console.WriteLine("-----------------------------UNOS PARAMETARA-----------------------------");
                 Console.WriteLine("Unesite naziv proizvoda. Za izlazak unesite exit");
                 string name = Console.ReadLine();
                 if (userInput.NameInput(name) == null)
@@ -36,7 +37,7 @@ namespace GameShopSOLID
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidName(userInput.NameInput(name)))
+                if (!validateInput.ValidName())             //zasto validateInput ima poslednju kopiju userInput a ne onu iz 30. linije
                 {
                     Console.WriteLine("~Pogresan unos! Naziv ne sme biti prazan ili veci od 64 karaktera.");
                     continue;
@@ -50,7 +51,7 @@ namespace GameShopSOLID
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidTaxOrDiscount(userInput.TaxInput(tax)))
+                if (!validateInput.ValidTaxOrDiscount())
                 {
                     Console.WriteLine("~Pogresan unos! Primeri ispravnog unosa: 14.4%; 14,4%; 14.4; 14,4");
                     continue;
@@ -64,7 +65,7 @@ namespace GameShopSOLID
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidTaxOrDiscount(userInput.TaxInput(discount)))
+                if (!validateInput.ValidTaxOrDiscount())
                 {
                     Console.WriteLine("~Pogresan unos! Primeri ispravnog unosa: 14.4%; 14,4%; 14.4; 14,4");
                     continue;
@@ -78,7 +79,7 @@ namespace GameShopSOLID
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidUPC(userInput.UpcInput(upc)))
+                if (!validateInput.ValidUPC())
                 {
                     Console.WriteLine("~Pogresan unos! UPC mora biti pozitivan ceo broj.");
                     continue;
@@ -92,7 +93,7 @@ namespace GameShopSOLID
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidSelectiveDiscount(userInput.SelectiveDiscountInput(selectiveDiscount)))
+                if (!validateInput.ValidSelectiveDiscount())
                 {
                     Console.WriteLine("~Pogresan unos! Unesite da ili ne");
                     continue;
@@ -105,13 +106,17 @@ namespace GameShopSOLID
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidPrice(userInput.PriceInput(price)))
+                if (!validateInput.ValidPrice())
                 {
                     Console.WriteLine("~Pogresan unos! Cena mora biti broj");
                     continue;
                 }
 
-                ParseInput parseInput = new ParseInput(userInput, validateInput);
+                ParseInput parseInput = new ParseInput(userInput);
+                Product product = new Product(userInput);
+                Console.WriteLine(product);
+
+
             }
         }
     }

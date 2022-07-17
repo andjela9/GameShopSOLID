@@ -6,13 +6,24 @@ namespace GameShopSOLID
 {
     public class UserInput
     {
-        private string name;
-        private string tax;
-        private string discount;
-        private string upc;
-        private string selectiveDiscount;
-        private string price;
+        //private string name;
+        //private string tax;
+        //private string discount;
+        //private string upc;
+        //private string selectiveDiscount;
+        //private string price;
 
+        public string name { get; set; }
+        public string tax;
+        public string discount;
+        public string upc;
+        public string selectiveDiscount;
+        public string price;
+
+        public string GetName()
+        {
+            return this.name;
+        }
 
         public string NameInput(string n)
         {
@@ -104,10 +115,7 @@ namespace GameShopSOLID
             }
         }
 
-        public string GetName()
-        {
-            return name;
-        }
+    
 
 
     }
