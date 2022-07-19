@@ -91,6 +91,29 @@ namespace GameShopSOLID
             }
         }
 
+        public bool ValidateSelectiveDiscountBase()
+        {
+            //bool valid = true;
+            Dictionary<string, string> sSelectiveDiscountBase = userInput.selectiveDiscountBase;
+            foreach(KeyValuePair<string, string> kvp in sSelectiveDiscountBase)
+            {
+                
+                if(!(Int32.TryParse(kvp.Key, out int upc) && upc >=0))
+                {
+                    //valid = false;
+                    return false;
+                }
+                if(!(Double.TryParse(kvp.Value, out double discount) && discount >= 0))
+                {
+                    //valid = false;
+                    return false;
+                }
+            }
+            //return valid;
+            return true;
+
+        }
+
 
     }
 }

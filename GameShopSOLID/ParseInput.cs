@@ -23,7 +23,7 @@ namespace GameShopSOLID
         public int ParseUPC()
         {
             string sUpc = userInput.upc;
-            return Int32.Parse(sUpc);
+            return Int32.Parse(sUpc);           //TryParse
         }
 
         public double ParseTax()
@@ -73,6 +73,16 @@ namespace GameShopSOLID
                 return false;
         }
 
-
+        public Dictionary<int, double> ParseSelectiveBaseDiscount()
+        {
+            Dictionary<int, double> selectiveDict = new Dictionary<int, double>();
+            foreach(KeyValuePair<string, string> kvp in userInput.selectiveDiscountBase)
+            {
+                int upc = Int32.Parse(kvp.Key);
+                double discount = Double.Parse(kvp.Value);
+                selectiveDict.Add(upc, discount);
+            }
+            return selectiveDict;
+        }
     }
 }

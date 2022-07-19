@@ -30,11 +30,17 @@ namespace GameShopSOLID
 
                 UserInput userInput = new UserInput();                                      
                 ValidateInput validateInput = new ValidateInput(userInput);
-                //Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
-                //Console.WriteLine("***Za zavrsetak unesite STOP");
-                //userInput.SelectiveDiscountBaseInput(validateInput);
+                Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
+                Console.WriteLine("***Za zavrsetak unesite STOP");
+                userInput.SelectiveDiscountBaseInput();
+                if (!validateInput.ValidateSelectiveDiscountBase())
+                {
+                    Console.WriteLine("Greska u unosu baze selektivnih popusta");
+                }
 
-
+                //value tipovi su int, bool
+                //reference su klase
+                //zato se pazi dokle koji zivi
 
                 Console.WriteLine("-----------------------------UNOS PARAMETARA-----------------------------");
                 Console.WriteLine("Unesite naziv proizvoda. Za izlazak unesite exit");
@@ -44,7 +50,7 @@ namespace GameShopSOLID
                     Console.WriteLine("***Dovidjenja!");
                     break;
                 }
-                if (!validateInput.ValidName())             //zasto validateInput ima poslednju kopiju userInput a ne onu iz 30. linije
+                if (!validateInput.ValidName())             //zasto validateInput ima poslednju kopiju userInput a ne onu iz 30. linije; jer je klasa
                 {
                     Console.WriteLine("~Pogresan unos! Naziv ne sme biti prazan ili veci od 64 karaktera.");
                     continue;
@@ -121,7 +127,7 @@ namespace GameShopSOLID
 
                 //Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
                 //Console.WriteLine("***Za zavrsetak unesite STOP");
-                //userInput.SelectiveDiscountBaseInput();
+                //userInput.SelectiveDiscountBaseInput(validateInput);
 
 
                 ParseInput parseInput = new ParseInput(userInput);
@@ -131,7 +137,9 @@ namespace GameShopSOLID
                 Output output = new Output(product);
                 output.DiscountOutput();
                 output.TaxOutput();
+                output.SelectiveDiscount();
                 output.FinalPriceOutput();
+                //output.SelectiveBaseDiscountOutput();
 
             }
         }

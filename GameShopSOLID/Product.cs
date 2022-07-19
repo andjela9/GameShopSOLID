@@ -14,6 +14,7 @@ namespace GameShopSOLID
         private double price;
         private UserInput ui;
         private ParseInput parseInput;
+        private Dictionary<int, double> selectiveDiscountBase;
 
         //public Product(ParseInput pi)
         //{
@@ -29,6 +30,7 @@ namespace GameShopSOLID
             upc = parseInput.ParseUPC();
             discountBefore = parseInput.ParseDiscountBefore();
             price = parseInput.ParsePrice();
+            selectiveDiscountBase = parseInput.ParseSelectiveBaseDiscount();
         }
 
         public override string ToString()
@@ -41,22 +43,59 @@ namespace GameShopSOLID
             return Math.Round((discount / 100) * price, 2);
         }
 
+        public double SelectiveDiscount()
+        {
+            //if (this.selectiveDiscountBase.ContainsKey(this.upc))
+            //{
+            //    return Math.Round((kvp.Value / 100) * this.price, 2);
+            //}
+            //else
+            //{
+            //    return 0;
+            //}
+
+            foreach (KeyValuePair<int, double> kvp in this.selectiveDiscountBase)
+            {
+                if (kvp.Key == this.upc)      //ima dodatni popust
+                {
+                    return Math.Round((kvp.Value / 100) * this.price, 2);
+                }
+            }
+            return 0;
+        }
+
+        public double TotalDiscount()
+        {
+            if (discountBefore)
+            {
+                double prviPopust = SelectiveDiscount();             //prvi popust
+                //double drugiPopust = Discount(disc, price - prviPopust);        //drugi popust na novu, umanjenu cenu
+
+                double drugiPopust = Math.Round((discount / 100) * (price-prviPopust), 2);
+                return prviPopust + drugiPopust;
+            }
+            else
+            {
+                return Math.Round(this.SelectiveDiscount() + this.Discount(), 2);
+            }
+        }
+
+
         public double Tax()
         {
-           // if (discountBefore)
-           // {
-           //     return Math.Round((tax / 100) * (price - selectiveDiscount()), 2);
-
-           // }
-          //  else
-          //  {
+            if (discountBefore)
+            {
+                return Math.Round((tax / 100) * (price - SelectiveDiscount()), 2);
+            }
+            else
+            {
                 return Math.Round((tax / 100) * price, 2);
-          //  }
+            }
         }
 
         public double FinalPrice()
         {
-            return Math.Round(price - Discount() + Tax(), 2);
+            return Math.Round(price - TotalDiscount() + Tax(), 2);
         }
 
 

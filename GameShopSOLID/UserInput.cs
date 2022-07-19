@@ -19,7 +19,7 @@ namespace GameShopSOLID
         public string upc;
         public string discountBefore;
         public string price;
-        public Dictionary<string, string> selectiveDicountBase = new Dictionary<string, string>();
+        public Dictionary<string, string> selectiveDiscountBase = new Dictionary<string, string>();
 
         public string GetName()
         {
@@ -116,7 +116,7 @@ namespace GameShopSOLID
             }
         }
 
-        public Dictionary<string, string> SelectiveDiscountBaseInput(ValidateInput vi)      //prva verzija je bila bez parametara, na to se odnosi pitanje
+        public Dictionary<string, string> SelectiveDiscountBaseInput()      //prva verzija je bila bez parametara, na to se odnosi pitanje
         {
             while (true)
             {
@@ -126,17 +126,16 @@ namespace GameShopSOLID
                 Console.WriteLine("Unesite popust");
                 discount = Console.ReadLine();
                 if (discount.ToLower() == "stop") break;
-
-                if (vi.ValidUPC() && vi.ValidTaxOrDiscount())           //zasto ovo radi i kad nije data instanca objekta ValidateInput
+                try
                 {
-                    selectiveDicountBase.Add(upc, discount);
+                    selectiveDiscountBase.Add(upc, discount);
                 }
-                else
+                catch
                 {
-                    Console.WriteLine("Greska u unosu!");
+                    Console.WriteLine("Unet je UPC koji vec postoji u bazi! Unos nece biti dodat u bazu");
                 }
             }
-            return selectiveDicountBase;
+            return selectiveDiscountBase;
         }
 
 
