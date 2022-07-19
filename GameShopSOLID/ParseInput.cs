@@ -84,5 +84,60 @@ namespace GameShopSOLID
             }
             return selectiveDict;
         }
+        public bool IsRSDCost(string s)
+        {
+            s.Trim();
+            return s.ToUpper().EndsWith("RSD");
+        }
+
+        public bool IsPercentCost(string s)
+        {
+            s.Trim();
+            return s.EndsWith("%");
+
+        }
+
+        public Dictionary<string, double> ParseAdditionalCostsRSD()
+        {
+            Dictionary<string, double> additionalDictRSD = new Dictionary<string, double>();
+            foreach(KeyValuePair<string, string> kvp in userInput.AdditionalCostsBase)
+            {
+                if(this.IsRSDCost(kvp.Value) && !this.IsPercentCost(kvp.Value))         //jeste dinarski, nije %
+                {
+                    string sRsd = kvp.Value.ToUpper();
+                    sRsd = sRsd.Replace('.', ',');
+                    if (sRsd.EndsWith("RSD"))
+                    {
+                        sRsd = sRsd.Replace("RSD", "");
+                    }
+                    sRsd.Trim();
+                    double rsd = Double.Parse(sRsd);
+                    additionalDictRSD.Add(kvp.Key, rsd);
+                }
+            }
+            return additionalDictRSD;
+        }
+
+        public Dictionary<string, double> ParseAdditionalCostsPercent()
+        {
+            Dictionary<string, double> additionalDictPercent = new Dictionary<string, double>();
+            foreach (KeyValuePair<string, string> kvp in userInput.AdditionalCostsBase)
+            {
+                if (!this.IsRSDCost(kvp.Value) && this.IsPercentCost(kvp.Value))         //nije dinarski, jeste %
+                {
+                    string sPercent = kvp.Value.ToUpper();
+                    sPercent = sPercent.Replace('.', ',');
+                    if (sPercent.EndsWith('%'))
+                    {
+                        sPercent = sPercent.Trim('%');
+                    }
+                    sPercent.Trim();
+                    double percent = Double.Parse(sPercent);
+                    additionalDictPercent.Add(kvp.Key, percent);
+                }
+            }
+            return additionalDictPercent;
+        }
+
     }
 }

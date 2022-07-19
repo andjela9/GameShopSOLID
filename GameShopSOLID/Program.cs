@@ -30,6 +30,15 @@ namespace GameShopSOLID
 
                 UserInput userInput = new UserInput();                                      
                 ValidateInput validateInput = new ValidateInput(userInput);
+
+                Console.WriteLine("-----UNOS DODATNIH TROSKOVA-----\n ***Za kraj unesite STOP");
+                userInput.InputAdditionalCosts();
+                if (!validateInput.ValidateAdditionalCostsInput())
+                {
+                    Console.WriteLine("Greska u unosu baze dodatnih troskova");
+                }
+
+
                 Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
                 Console.WriteLine("***Za zavrsetak unesite STOP");
                 userInput.SelectiveDiscountBaseInput();
@@ -125,9 +134,7 @@ namespace GameShopSOLID
                     continue;
                 }
 
-                //Console.WriteLine("------------------UNOS BAZE SELEKTIVNIH POPUSTA------------------");       //pitanje exception 
-                //Console.WriteLine("***Za zavrsetak unesite STOP");
-                //userInput.SelectiveDiscountBaseInput(validateInput);
+                
 
 
                 ParseInput parseInput = new ParseInput(userInput);
@@ -139,6 +146,8 @@ namespace GameShopSOLID
                 output.TaxOutput();
                 output.SelectiveDiscount();
                 output.FinalPriceOutput();
+                output.AdditionalCostsOutput();
+                Console.WriteLine(output.AdditionalCostsOutput());
                 //output.SelectiveBaseDiscountOutput();
 
             }

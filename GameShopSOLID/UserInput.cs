@@ -20,6 +20,7 @@ namespace GameShopSOLID
         public string discountBefore;
         public string price;
         public Dictionary<string, string> selectiveDiscountBase = new Dictionary<string, string>();
+        public Dictionary<string, string> AdditionalCostsBase = new Dictionary<string, string>();
 
         public string GetName()
         {
@@ -138,9 +139,27 @@ namespace GameShopSOLID
             return selectiveDiscountBase;
         }
 
-
-
-    
+        public Dictionary<string, string> InputAdditionalCosts()
+        {
+            while (true)
+            {
+                Console.WriteLine("Unesite naziv troska");
+                name = Console.ReadLine();
+                if (name.ToLower() == "stop") break;
+                Console.WriteLine("Unesite iznos RSD ili %");
+                string trosak = Console.ReadLine();
+                if (trosak.ToLower() == "stop") break;
+                try
+                {
+                    AdditionalCostsBase.Add(name, trosak);
+                }
+                catch
+                {
+                    Console.WriteLine("Unet je naziv koji vec postoji u bazi! Unos nece biti dodat u bazu");
+                }
+            }
+            return AdditionalCostsBase;
+        }
 
 
     }

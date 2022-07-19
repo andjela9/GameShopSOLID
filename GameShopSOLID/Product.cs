@@ -15,6 +15,8 @@ namespace GameShopSOLID
         private UserInput ui;
         private ParseInput parseInput;
         private Dictionary<int, double> selectiveDiscountBase;
+        public Dictionary<string, double> additionalCostsRSD;
+        public Dictionary<string, double> additionalCostsPercent;
 
         //public Product(ParseInput pi)
         //{
@@ -31,6 +33,8 @@ namespace GameShopSOLID
             discountBefore = parseInput.ParseDiscountBefore();
             price = parseInput.ParsePrice();
             selectiveDiscountBase = parseInput.ParseSelectiveBaseDiscount();
+            additionalCostsRSD = parseInput.ParseAdditionalCostsRSD();
+            additionalCostsPercent = parseInput.ParseAdditionalCostsPercent();
         }
 
         public override string ToString()
@@ -45,23 +49,15 @@ namespace GameShopSOLID
 
         public double SelectiveDiscount()
         {
-            //if (this.selectiveDiscountBase.ContainsKey(this.upc))
-            //{
-            //    return Math.Round((kvp.Value / 100) * this.price, 2);
-            //}
-            //else
-            //{
-            //    return 0;
-            //}
-
-            foreach (KeyValuePair<int, double> kvp in this.selectiveDiscountBase)
+            if (this.selectiveDiscountBase.ContainsKey(this.upc))
             {
-                if (kvp.Key == this.upc)      //ima dodatni popust
-                {
-                    return Math.Round((kvp.Value / 100) * this.price, 2);
-                }
+                return Math.Round((selectiveDiscountBase[upc] / 100) * this.price, 2);
             }
-            return 0;
+            else
+            {
+                return 0;
+            }
+
         }
 
         public double TotalDiscount()

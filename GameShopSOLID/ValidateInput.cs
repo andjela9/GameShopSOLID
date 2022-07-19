@@ -111,7 +111,23 @@ namespace GameShopSOLID
             }
             //return valid;
             return true;
+        }
 
+        public bool ValidateAdditionalCostsInput()
+        {
+            Dictionary<string, string> sAdditional = userInput.AdditionalCostsBase;
+            foreach(KeyValuePair<string, string> kvp in sAdditional)
+            {
+                if (String.IsNullOrWhiteSpace(kvp.Key))
+                {
+                    return false;
+                }
+                if(!(kvp.Value.ToUpper().EndsWith("RSD") || kvp.Value.EndsWith("%")))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
 

@@ -49,6 +49,28 @@ namespace GameShopSOLID
         //    }
         //}
 
+        public string AdditionalCostsOutput()
+        {
+            //Console.WriteLine("Dinarski troskovi: \n");
+            string s = "";
+            foreach (KeyValuePair<string, double> kvp in product.additionalCostsRSD)
+            {
+                //Console.WriteLine($"{kvp.Key} = {kvp.Value} RSD");
+                //s += $"{kvp.Key} = {kvp.Value} RSD\n";
+                s = string.Concat(s, $"{kvp.Key} = {kvp.Value} RSD\n");
+                //string builder; string format izguglati
+            }
+            //Console.WriteLine("Troskovi u procentima: \n");
+            foreach (KeyValuePair<string, double> kvp in product.additionalCostsPercent)
+            {
+                //Console.WriteLine($"{kvp.Key} = {(kvp.Value/100) * price} RSD");
+                //s += $"{kvp.Key} = {(kvp.Value / 100) * price} RSD\n";
+                //s = string.Concat(s, $"{kvp.Key} = {Math.Round((kvp.Value / 100) * price, 2)} RSD\n");
+                s = string.Concat(s, $"{kvp.Key} = {kvp.Value} %\n");
+            }
+            return s;
+        }
+
 
     }
 }
